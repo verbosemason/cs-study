@@ -1,0 +1,6 @@
+(define (log-mult a b)
+  (define (double x) (* 2 x))
+  (define (half x) (/ x 2))
+  (cond ((= b 0) 0)
+        ((even? b) (log-mult (double a) (half b)))
+        (else (+ a (log-mult a (- b 1))))))
