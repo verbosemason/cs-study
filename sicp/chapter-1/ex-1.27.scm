@@ -1,0 +1,10 @@
+(define (expmod base expn m)
+  (cond ((= expn 0) 1)
+        ((even? expn)
+         (remainder (square (expmod base (/ expn 2) m)) m))
+        (else (remainder (* base (expmod base (- expn 1) m)) m))))
+        
+(define (test-all-values n)
+   (define (try-it a)
+     (and (= (expmod a n n) a) (or (= a (- n 1)) (try-it (+ a 1)))))
+   (try-it 2))
