@@ -1,0 +1,20 @@
+(define (make-interval a b) (cons a b))
+
+(define (upper-bound x) (cdr x))
+(define (lower-bound x) (car x))
+
+(define (mul-interval x y)
+ (let ((a (lower-bound x))
+ 	  (b (upper-bound x))
+ 	  (c (lower-bound y))
+ 	  (d (upper-bound y)))
+  (cond ((and (>= a 0) (>= c 0)) (make-interval (* a c) (* b d)))
+                ((and (>= a 0) (< d 0)) (make-interval (* b c) (* a d)))
+                ((>= a 0) (make-interval (* b c) (* b d)))
+                ((and (>= b 0) (>= c 0)) (make-interval (* a d) (* b d)))
+                ((>= c 0) (make-interval (* a d) (* b c)))
+                ((and (< b 0) (< d 0)) (make-interval (* b d) (* a c)))
+                ((< d 0) (make-interval (* b c) (* a c)))
+                ((< b 0) (make-interval (* a d) (* a c)))
+                (else (make-interval (min (* a d) (* b c)) (max (* a c) (* b d)))))))
+         
